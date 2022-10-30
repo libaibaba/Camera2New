@@ -33,4 +33,4 @@ jobs:
     - name: Create Release
       uses: ncipollo/release-action@v1.11.1
       with:
-        tag: tes
+        tag: ver-${{ github.sha }}
