@@ -24,7 +24,7 @@ jobs:
     - name: Grant execute permission for gradlew
       run:  |
         chmod +x ./gradlew
-        ./gradlew:module:camera2:assembleDebug
+        ./gradlew :module:camera2:assembleDebug
       
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.1
