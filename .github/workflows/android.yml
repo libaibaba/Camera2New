@@ -1,11 +1,11 @@
 name: Android CI
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
+  workflow_dispatch:
+      inputs:
+        package_name:
+          description: "AppName:"
+          required: true
 
 jobs:
   build:
@@ -26,9 +26,16 @@ jobs:
       
     - name: Build with Gradle
       run: ./gradlew build
-      
+
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with:
-        name: App
-        path: ${{ github.workspace }}/app/build/outputs/apk/debug/app-debug.apk
+        name: ${{ github.event.inputs.package_name }}
+        path: ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
+        
+    - name: Create a release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
+        tag_name: v0.01
+        name: ${{ github.event.inputs.package_name }} v0.01
