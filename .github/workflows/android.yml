@@ -22,11 +22,10 @@ jobs:
         cache: gradle
 
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      run:  |
+        chmod +x ./gradlew
+        ./gradlew:camera2:assembleDebug
       
-    - name: Build with Gradle
-      run: ./gradlew:camera2:assembleDebug
-
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with:
