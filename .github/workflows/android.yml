@@ -25,17 +25,17 @@ jobs:
       run: chmod +x gradlew
       
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew:camera2:assembleDebug
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with:
         name: ${{ github.event.inputs.package_name }}
-        path: ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
+        path: ${{ github.workspace }}/camera2/build/outputs/apk/debug/*.apk
         
     - name: Create a release
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
+        files: ${{ github.workspace }}/camera2/build/outputs/apk/debug/*.apk
         tag_name: v0.01
         name: ${{ github.event.inputs.package_name }} v0.01
